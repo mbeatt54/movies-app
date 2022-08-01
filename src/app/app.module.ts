@@ -10,6 +10,7 @@ import { ItemComponent } from './components/item/item.component';
 import { ItemsBannerComponent } from './components/items-banner/items-banner.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { NgModule } from '@angular/core';
+import { PaginatorModule } from 'primeng/paginator';
 import { SliderComponent } from './components/slider/slider.component';
 
 @NgModule({
@@ -23,7 +24,7 @@ import { SliderComponent } from './components/slider/slider.component';
     ItemsBannerComponent,
     ItemComponent,
   ],
-  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, PaginatorModule],
   providers: [],
   bootstrap: [AppComponent],
 })
