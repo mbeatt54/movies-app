@@ -1,3 +1,4 @@
+import { GenreDto } from '../_dtos/genreDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Movie } from '../_models/movie';
@@ -29,6 +30,16 @@ export class MoviesService {
     );
   }
 
+  getMoviesByGenre(genreId: number, page: number = 1) {
+    return this.http
+      .get<MovieDto>(`${this.baseUrl}/discover/movie?with_genres=${genreId}&page=${page}&api_key=${this.apiKey}`)
+      .pipe(
+        switchMap((response) => {
+          return of(response.results);
+        })
+      );
+  }
+
   getVideos(id: number) {
     return this.http.get<VideoDto>(`${this.baseUrl}/movie/${id}/videos?api_key=${this.apiKey}`).pipe(
       switchMap((response) => {
@@ -45,12 +56,23 @@ export class MoviesService {
     return this.http.get<MovieCredits>(`${this.baseUrl}/movie/${id}/credits?api_key=${this.apiKey}`);
   }
 
-  searchMovies(page: number = 1) {
-    return this.http.get<MovieDto>(`${this.baseUrl}/movie/popular?page=${page}&api_key=${this.apiKey}`).pipe(
+  getGenres() {
+    return this.http.get<GenreDto>(`${this.baseUrl}/genre/movie/list?&api_key=${this.apiKey}`).pipe(
       switchMap((response) => {
-        return of(response.results);
+        return of(response.genres);
       })
     );
+  }
+
+  searchMovies(page: number = 1, searchValue?: string) {
+    const uri = searchValue ? '/search/movie' : '/movie/popular';
+    return this.http
+      .get<MovieDto>(`${this.baseUrl}${uri}?page=${page}&query=${searchValue}&api_key=${this.apiKey}`)
+      .pipe(
+        switchMap((response) => {
+          return of(response.results);
+        })
+      );
   }
 
   similiarMovies(id: number) {

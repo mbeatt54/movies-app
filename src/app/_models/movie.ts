@@ -1,3 +1,4 @@
+import { Genre } from './genre';
 import { MovieVideo } from './movieVideo';
 
 export interface Movie {
@@ -19,11 +20,6 @@ export interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
-}
-
-export interface Genre {
-  id: number;
-  name: string;
 }
 
 export interface MovieVideoDto {
